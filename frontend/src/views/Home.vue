@@ -15,7 +15,7 @@
     <div class="main-content">
       <header class="topbar">
         <div class="user-info">
-          <span>Olá, Usuário</span>
+          <span>Olá, {{ nomeUsuario }}</span>
           <button @click="logout">Logout</button>
         </div>
       </header>
@@ -28,6 +28,24 @@
 </template>
 
 <script setup>
+import { useUserStore } from '../stores/userStore';
+import { computed, onMounted } from 'vue';
+
+const userStore = useUserStore();
+
+const nomeUsuario = computed(() => userStore.usuarioLogado?.nome || 'Usuário');
+
+onMounted(() => {
+  const usuario = localStorage.getItem('usuario');
+  if (usuario) {
+    userStore.usuarioLogado = JSON.parse(usuario);
+  }
+});
+
+function logout() {
+  userStore.logout();n
+  window.location.href = '/login';
+}
 </script>
 
 <style scoped>

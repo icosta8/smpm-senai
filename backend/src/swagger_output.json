@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API SMPM (Compass)",
+    "description": "Documentação automática gerada com swagger-autogen",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Ambiente local (Compass)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Operações CRUD de usuários"
+    }
+  ],
+  "paths": {
+    "/api/usuarios/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/usuarios/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/usuarios/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

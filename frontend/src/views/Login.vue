@@ -40,7 +40,6 @@ const fazerLogin = async () => {
   const ok = await userStore.login(form.value.email, form.value.senha);
 
   if (ok) {
-    alert("Login realizado com sucesso!");
     router.push("/home");
   } else {
     alert("E-mail ou senha incorretos!");

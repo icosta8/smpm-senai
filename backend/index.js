@@ -1,21 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./src/swagger_output.json"); 
 
-const port = 3000;
 const app = express();
+const port = 3000;
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/SMPM')
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+mongoose.connect("mongodb://127.0.0.1:27017/SMPM")
   .then(() => console.log("✅ Conectado ao MongoDB"))
   .catch(err => console.error("❌ Erro ao conectar:", err));
 
+// Rotas
 const userRoutes = require("./src/routes/userRoutes");
-
 app.use("/api/usuarios", userRoutes);
 
+// Iniciando o servidor
 app.listen(port, () => {
-  console.log('App running on port ' + port);
+  console.log(`App rodando na porta ${port}`);
+  console.log(`📖 Documentação Swagger disponível em http://localhost:${port}/api-docs`);
 });

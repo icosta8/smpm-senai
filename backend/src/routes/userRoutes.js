@@ -2,7 +2,16 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
+/* -------------------------------------------
+   Cadastrar Usuário
+-------------------------------------------- */
+/*
+  #swagger.tags = ['Usuários']
+  #swagger.summary = 'Cadastrar novo usuário'
+  #swagger.description = 'Cria um novo usuário no sistema'
+*/
 router.post("/", async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
@@ -28,12 +37,26 @@ router.post("/", async (req, res) => {
 });
 
 
+/* -------------------------------------------
+   Listar Usuários
+-------------------------------------------- */
+/*
+  #swagger.tags = ['Usuários']
+  #swagger.summary = 'Listar todos os usuários'
+*/
 router.get("/", async (req, res) => {
   const users = await User.find().select("-senha");
   res.json(users);
 });
 
 
+/* -------------------------------------------
+   Atualizar Usuário
+-------------------------------------------- */
+/*
+  #swagger.tags = ['Usuários']
+  #swagger.summary = 'Atualizar um usuário pelo ID'
+*/
 router.put("/:id", async (req, res) => {
   try {
     const updates = { ...req.body };
@@ -53,15 +76,27 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+
+/* -------------------------------------------
+   Deletar Usuário
+-------------------------------------------- */
+/*
+  #swagger.tags = ['Usuários']
+  #swagger.summary = 'Deletar um usuário pelo ID'
+*/
 router.delete("/:id", async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.json({ message: "Usuário deletado" });
 });
 
-const jwt = require("jsonwebtoken");
 
-// LOGIN
-
+/* -------------------------------------------
+   Login
+-------------------------------------------- */
+/*
+  #swagger.tags = ['Usuários']
+  #swagger.summary = 'Login do usuário'
+*/
 router.post("/login", async (req, res) => {
   try {
     const { email, senha } = req.body;
@@ -78,7 +113,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Senha incorreta" });
     }
 
-  
     const token = jwt.sign(
       { id: user._id },
       "SEGREDO_SUPER_SEGURO",
@@ -100,6 +134,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Erro no login" });
   }
 });
-
 
 module.exports = router;
