@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { api } from "../services/api";
+import userService from "../services/userService";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -11,7 +11,7 @@ export const useUserStore = defineStore("user", {
   actions: {
     async cadastrarUsuario(dados) {
       try {
-        const response = await api.post("/", dados);
+        const response = await userService.cadastrarUsuario(dados);
         this.usuarios.push(response.data);
         return response.data;
       } catch (error) {
@@ -22,7 +22,7 @@ export const useUserStore = defineStore("user", {
 
     async login(email, senha) {
       try {
-        const response = await api.post("/login", { email, senha });
+        const response = await userService.login({ email, senha });
 
         // salvar token
         this.token = response.data.token;

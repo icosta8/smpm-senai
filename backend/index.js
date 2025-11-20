@@ -21,6 +21,9 @@ mongoose.connect("mongodb://127.0.0.1:27017/SMPM")
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/usuarios", userRoutes);
 
+const maquinasRoutes = require("./src/routes/maquinasRoutes");
+app.use("/api/maquinas", maquinasRoutes);
+
 // Iniciando o servidor
 app.listen(port, () => {
   console.log(`App rodando na porta ${port}`);

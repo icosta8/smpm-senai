@@ -43,7 +43,7 @@ onMounted(() => {
 });
 
 function logout() {
-  userStore.logout();n
+  userStore.logout();
   window.location.href = '/login';
 }
 </script>
