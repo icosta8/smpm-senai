@@ -9,15 +9,30 @@
     <!-- Lista de Máquinas -->
     <ul v-if="maquinasStore.maquinas.length">
       <li v-for="maquina in maquinasStore.maquinas" :key="maquina._id" class="maquina-item">
+
         <div class="maquina-info">
-          <strong>{{ maquina.nome }}</strong> - {{ maquina.modelo }} - {{ maquina.status }}
+          <!-- Nome + Modelo -->
+          <div class="info-esquerda">
+            <strong>{{ maquina.nome }}</strong> - {{ maquina.modelo }}
+          </div>
+
+          <!-- Status com bolinha -->
+          <span
+            class="status-badge"
+            :class="maquina.status.toLowerCase().replace(' ', '-')"
+          >
+            ● {{ maquina.status }}
+          </span>
         </div>
+
         <div class="maquina-actions">
           <button class="btn-editar" @click="editarMaquina(maquina)">Editar</button>
           <button class="btn-excluir" @click="excluirMaquina(maquina._id)">Excluir</button>
         </div>
+
       </li>
     </ul>
+
     <p v-else>Nenhuma máquina cadastrada.</p>
 
     <!-- Modal -->
@@ -65,6 +80,7 @@
         </form>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -98,14 +114,10 @@ function fecharModal() {
 async function salvarMaquina() {
   try {
     if (editarId.value) {
-      // Se estiver editando
       await maquinasStore.atualizar(editarId.value, novaMaquina.value);
-      alert("Máquina atualizada com sucesso!");
     } else {
       await maquinasStore.criar(novaMaquina.value);
-      alert("Máquina cadastrada com sucesso!");
     }
-
     fecharModal();
   } catch (error) {
     alert("Erro ao salvar máquina");
@@ -133,7 +145,6 @@ async function excluirMaquina(id) {
   }
 }
 
-// Carregar todas as máquinas ao montar o componente
 onMounted(() => {
   maquinasStore.listar();
 });
@@ -177,6 +188,41 @@ ul {
   align-items: center;
   padding: 0.5rem;
   border-bottom: 1px solid #ccc;
+}
+
+/* Linha com nome/modelo e status no meio */
+.maquina-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between; /* separa esquerda do status */
+  align-items: center;
+  padding-right: 1rem;
+}
+
+.info-esquerda {
+  display: flex;
+  gap: 6px;
+}
+
+/* Status com bolinha */
+.status-badge {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* cores do status */
+.status-badge.ativa {
+  color: #1dbf1d;
+}
+
+.status-badge.em-manutencao {
+  color: #d9c322;
+}
+
+.status-badge.inativa {
+  color: #d9534f;
 }
 
 .maquina-actions button {

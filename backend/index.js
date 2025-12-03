@@ -24,6 +24,9 @@ app.use("/api/usuarios", userRoutes);
 const maquinasRoutes = require("./src/routes/maquinasRoutes");
 app.use("/api/maquinas", maquinasRoutes);
 
+const agendamentosRoutes = require("./src/routes/agendamentosRoutes");
+app.use("/api/agendamentos", agendamentosRoutes);
+
 // Iniciando o servidor
 app.listen(port, () => {
   console.log(`App rodando na porta ${port}`);
