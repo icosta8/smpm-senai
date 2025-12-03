@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000/api/usuarios"
+  baseURL: "https://smpm-senai.onrender.com"
 });
 
 export const apiMaquinas = axios.create({
-  baseURL: "http://localhost:3000/api/maquinas"
+  baseURL: "https://smpm-senai.onrender.com"
 });
