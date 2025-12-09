@@ -1,16 +1,18 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+const API = "https://SEU-BACKEND.onrender.com/api/agendamentos";
+
 export const useAgendamentosStore = defineStore("agendamentosStore", {
   state: () => ({
     agendamentos: [],
   }),
 
   actions: {
-    // Listar todos
+    // Listar
     async listar() {
       try {
-        const res = await axios.get("http://localhost:3000/api/agendamentos");
+        const res = await axios.get(API);
         this.agendamentos = res.data;
       } catch (err) {
         console.error("Erro ao listar agendamentos:", err);
@@ -20,7 +22,7 @@ export const useAgendamentosStore = defineStore("agendamentosStore", {
     // Criar
     async criar(agendamento) {
       try {
-        const res = await axios.post("http://localhost:3000/api/agendamentos", agendamento);
+        const res = await axios.post(API, agendamento);
         this.agendamentos.push(res.data);
       } catch (err) {
         console.error("Erro ao criar agendamento:", err);
@@ -30,7 +32,7 @@ export const useAgendamentosStore = defineStore("agendamentosStore", {
     // Atualizar
     async atualizar(id, dados) {
       try {
-        const res = await axios.put(`http://localhost:3000/api/agendamentos/${id}`, dados);
+        const res = await axios.put(`${API}/${id}`, dados);
 
         const index = this.agendamentos.findIndex(a => a._id === id);
         if (index !== -1) {
@@ -44,7 +46,7 @@ export const useAgendamentosStore = defineStore("agendamentosStore", {
     // Deletar
     async deletar(id) {
       try {
-        await axios.delete(`http://localhost:3000/api/agendamentos/${id}`);
+        await axios.delete(`${API}/${id}`);
         this.agendamentos = this.agendamentos.filter(a => a._id !== id);
       } catch (err) {
         console.error("Erro ao deletar agendamento:", err);
