@@ -13,7 +13,9 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+  dbName: "appdb"
+})
   .then(() => console.log("✅ Conectado ao MongoDB"))
   .catch(err => console.error("❌ Erro ao conectar:", err));
 
