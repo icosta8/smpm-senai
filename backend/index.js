@@ -5,7 +5,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./src/swagger_output.json"); 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-mongoose.connect("mongodb://127.0.0.1:27017/SMPM")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Conectado ao MongoDB"))
   .catch(err => console.error("❌ Erro ao conectar:", err));
 

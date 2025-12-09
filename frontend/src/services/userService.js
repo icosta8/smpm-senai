@@ -1,17 +1,16 @@
-// services/userService.js
 import { api } from "./api";
 
 export default {
   cadastrarUsuario(dados) {
-    return api.post("/", dados); // apenas "/" porque o baseURL já aponta para /api/usuarios
+    return api.post("/", dados); // POST /api/usuarios/
   },
 
   login(dados) {
-    return api.post("/login", dados); // /login porque é relativo ao baseURL
+    return api.post("/login", dados); // POST /api/usuarios/login
   },
 
   listarUsuarios() {
-    return api.get("/");
+    return api.get("/"); 
   },
 
   atualizarUsuario(id, dados) {
