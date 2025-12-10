@@ -1,6 +1,6 @@
 import { apiAgendamentos } from "./api";
 
-export default {
+const agendamentosService = {
   listar() {
     return apiAgendamentos.get("/");
   },
@@ -17,3 +17,5 @@ export default {
     return apiAgendamentos.delete(`/${id}`);
   }
 };
+
+export default agendamentosService;

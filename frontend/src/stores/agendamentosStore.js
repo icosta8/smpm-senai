@@ -7,26 +7,26 @@ export const useAgendamentosStore = defineStore("agendamentosStore", {
   }),
 
   actions: {
-    async carregarAgendamentos() {
+    async listar() {
       const res = await agendamentosService.listar();
-      this.agendamentos = res.data; // <-- CORREÇÃO AQUI
+      this.agendamentos = res.data;
     },
 
-    async adicionarAgendamento(agendamento) {
+    async criar(agendamento) {
       const res = await agendamentosService.criar(agendamento);
-      this.agendamentos.push(res.data); // <-- CORREÇÃO AQUI
+      this.agendamentos.push(res.data);
     },
 
-    async atualizarAgendamento(id, dados) {
+    async atualizar(id, dados) {
       const res = await agendamentosService.atualizar(id, dados);
 
       const index = this.agendamentos.findIndex(a => a._id === id);
       if (index !== -1) {
-        this.agendamentos[index] = res.data; // <-- CORREÇÃO AQUI
+        this.agendamentos[index] = res.data;
       }
     },
 
-    async deletarAgendamento(id) {
+    async deletar(id) {
       await agendamentosService.deletar(id);
       this.agendamentos = this.agendamentos.filter(a => a._id !== id);
     }
