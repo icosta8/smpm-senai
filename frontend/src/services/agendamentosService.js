@@ -1,23 +1,19 @@
-import api from './api'
+import { apiAgendamentos } from "./api";
 
 export default {
-  async listar() {
-    const response = await api.get('/agendamentos')
-    return response.data
+  listar() {
+    return apiAgendamentos.get("/");
   },
 
-  async criar(agendamento) {
-    const response = await api.post('/agendamentos', agendamento)
-    return response.data
+  criar(dados) {
+    return apiAgendamentos.post("/", dados);
   },
 
-  async atualizar(id, agendamento) {
-    const response = await api.put(`/agendamentos/${id}`, agendamento)
-    return response.data
+  atualizar(id, dados) {
+    return apiAgendamentos.put(`/${id}`, dados);
   },
 
-  async deletar(id) {
-    const response = await api.delete(`/agendamentos/${id}`)
-    return response.data
+  deletar(id) {
+    return apiAgendamentos.delete(`/${id}`);
   }
-}
+};
