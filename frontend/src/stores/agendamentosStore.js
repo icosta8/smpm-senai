@@ -1,56 +1,31 @@
-import { defineStore } from "pinia";
-import axios from "axios";
+import { defineStore } from 'pinia'
+import agendamentosService from '@/services/agendamentosService'
 
-const API = "https://SEU-BACKEND.onrender.com/api/agendamentos";
-
-export const useAgendamentosStore = defineStore("agendamentosStore", {
+export const useAgendamentosStore = defineStore('agendamentosStore', {
   state: () => ({
-    agendamentos: [],
+    agendamentos: []
   }),
 
   actions: {
-    // Listar
-    async listar() {
-      try {
-        const res = await axios.get(API);
-        this.agendamentos = res.data;
-      } catch (err) {
-        console.error("Erro ao listar agendamentos:", err);
-      }
+    async carregarAgendamentos() {
+      this.agendamentos = await agendamentosService.listar()
     },
 
-    // Criar
-    async criar(agendamento) {
-      try {
-        const res = await axios.post(API, agendamento);
-        this.agendamentos.push(res.data);
-      } catch (err) {
-        console.error("Erro ao criar agendamento:", err);
-      }
+    async adicionarAgendamento(agendamento) {
+      const novo = await agendamentosService.criar(agendamento)
+      this.agendamentos.push(novo)
     },
 
-    // Atualizar
-    async atualizar(id, dados) {
-      try {
-        const res = await axios.put(`${API}/${id}`, dados);
+    async atualizarAgendamento(id, dados) {
+      const atualizado = await agendamentosService.atualizar(id, dados)
 
-        const index = this.agendamentos.findIndex(a => a._id === id);
-        if (index !== -1) {
-          this.agendamentos[index] = res.data;
-        }
-      } catch (err) {
-        console.error("Erro ao atualizar agendamento:", err);
-      }
+      const index = this.agendamentos.findIndex(a => a.id === id)
+      if (index !== -1) this.agendamentos[index] = atualizado
     },
 
-    // Deletar
-    async deletar(id) {
-      try {
-        await axios.delete(`${API}/${id}`);
-        this.agendamentos = this.agendamentos.filter(a => a._id !== id);
-      } catch (err) {
-        console.error("Erro ao deletar agendamento:", err);
-      }
+    async deletarAgendamento(id) {
+      await agendamentosService.deletar(id)
+      this.agendamentos = this.agendamentos.filter(a => a.id !== id)
     }
   }
-});
+})
